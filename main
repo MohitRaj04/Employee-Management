@@ -1,0 +1,59 @@
+#include <stdio.h>
+struct Employee {
+    int employeeID;
+    char employeeName[30];
+    float basicSalary;
+    
+    struct Date {
+        int dd, mm, yy;
+    } hireDate;
+    
+    float netSalary;
+};
+float NetSal(float base) {
+    float DA = 0.4 * base;
+    float TA = 0.1 * base;
+    float PF = 0.05 * base;
+    
+    float gross = base + DA + TA;
+    float net = gross - PF;
+    
+    return net;
+}
+void input(struct Employee* emp) {
+    printf("\n");
+    printf("Employee ID: ");
+    scanf("%d", &emp->employeeID);
+    
+    printf("Employee Name: ");
+    scanf("%s", emp->employeeName);
+    
+    printf("Hire Date (DD MM YY): ");
+    scanf("%d %d %d", &emp->hireDate.dd, &emp->hireDate.mm, &emp->hireDate.yy);
+    
+    printf("Basic Salary: ");
+    scanf("%f", &emp->basicSalary);
+  
+    emp->netSalary = NetSal(emp->basicSalary);
+}
+void output(struct Employee* emp) {
+    printf("\nEmployee ID    :\t%d", emp->employeeID);
+    printf("\nEmployee Name      :\t%s", emp->employeeName);
+    printf("\nHire Date(DD/MM/YY):\t%d/%d/%d", emp->hireDate.dd, emp->hireDate.mm, emp->hireDate.yy);
+    printf("\nBasic Salary       :\t%0.2f", emp->basicSalary);
+    printf("\nNet Salary         :\t%0.2f", emp->netSalary);
+}
+int main() {
+    int n;
+    printf("Enter number of employees: ");
+    scanf("%d", &n);
+    struct Employee emp[n];
+    for (int i = 0; i < n; i++) {
+        input(&emp[i]);
+    }
+    for (int i = 0; i < n; i++) {
+        output(&emp[i]);
+        printf("\n");
+    }
+    return 0;
+}
